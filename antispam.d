@@ -84,7 +84,7 @@ void main()
 			{
 				log("Got request: " ~ request.resource);
 				foreach (k, v; request.decodePostData())
-					log("Post: " ~ k ~ "=" ~ v);
+					log("Post data: " ~ k ~ "=" ~ v);
 			}
 
 			switch (request.resource)
@@ -124,6 +124,7 @@ void main()
 							article.content = title ~ "\n\n" ~ text;
 
 							article.referrer = suggestion["referrer"].nullStr;
+							log("Checking for spam...");
 							checkSpam(article,
 								(bool ok, string reason)
 								{
@@ -172,6 +173,7 @@ string nullStr(JSONValue v)
 
 void oauthLogin()
 {
+	log("Getting request token...");
 	auto request = new HttpRequest("https://" ~ config.site ~ "/api/v1/oauth/request_token.json");
 	// ?oauth_callback=" ~ encodeUrlParameter(config.urlBase ~ "/callback)
 	prepareRequest(session, request);
@@ -180,7 +182,7 @@ void oauthLogin()
 		{
 			enforce(response.status == HttpStatusCode.OK);
 			auto responseText = cast(string)response.getContent().toHeap;
-			log(responseText);
+			log("Request token result: " ~ responseText);
 			auto json = responseText.parseJSON();
 			session.token = json["token"]["oauth_token"].nullStr;
 			session.tokenSecret = json["token"]["oauth_token_secret"].nullStr;
@@ -195,6 +197,7 @@ void oauthLogin()
 				readln();
 			}
 
+			log("Getting access token...");
 			request = new HttpRequest("https://" ~ config.site ~ "/api/v1/oauth/access_token.json");
 			// ?oauth_verifier=" ~ encodeUrlParameter(config.oauthVerifier.length)
 			prepareRequest(session, request);
@@ -203,7 +206,7 @@ void oauthLogin()
 				{
 					enforce(response.status == HttpStatusCode.OK);
 					auto responseText = cast(string)response.getContent().toHeap;
-					log(responseText);
+					log("Access token result: " ~ responseText);
 					auto json = responseText.parseJSON();
 					session.token = json["token"]["oauth_token"].nullStr;
 					session.tokenSecret = json["token"]["oauth_token_secret"].nullStr;
