@@ -112,18 +112,18 @@ void main()
 							Article article;
 							auto suggestion = data["suggestion"];
 
-							auto url = suggestion["url"].str;
+							auto url = suggestion["url"].nullStr;
 							article.site = url.split("/")[0..3].join("/") ~ "/";
 
 							auto creator = suggestion["creator"];
-							article.author = creator["name"].str;
-							article.email = creator["email"].str;
+							article.author = creator["name"].nullStr;
+							article.email = creator["email"].nullStr;
 
-							auto title = suggestion["title"].str;
-							auto text = suggestion["text"].str;
+							auto title = suggestion["title"].nullStr;
+							auto text = suggestion["text"].nullStr;
 							article.content = title ~ "\n\n" ~ text;
 
-							article.referrer = suggestion["referrer"].str;
+							article.referrer = suggestion["referrer"].nullStr;
 							checkSpam(article,
 								(bool ok, string reason)
 								{
@@ -162,6 +162,14 @@ void main()
 	socketManager.loop();
 }
 
+string nullStr(JSONValue v)
+{
+	if (v.type == JSON_TYPE.NULL)
+		return null;
+	else
+		return v.str;
+}
+
 void oauthLogin()
 {
 	auto request = new HttpRequest("https://" ~ config.site ~ "/api/v1/oauth/request_token.json");
@@ -174,8 +182,8 @@ void oauthLogin()
 			auto responseText = cast(string)response.getContent().toHeap;
 			log(responseText);
 			auto json = responseText.parseJSON();
-			session.token = json["token"]["oauth_token"].str;
-			session.tokenSecret = json["token"]["oauth_token_secret"].str;
+			session.token = json["token"]["oauth_token"].nullStr;
+			session.tokenSecret = json["token"]["oauth_token_secret"].nullStr;
 
 			{
 				import std.stdio;
@@ -197,8 +205,8 @@ void oauthLogin()
 					auto responseText = cast(string)response.getContent().toHeap;
 					log(responseText);
 					auto json = responseText.parseJSON();
-					session.token = json["token"]["oauth_token"].str;
-					session.tokenSecret = json["token"]["oauth_token_secret"].str;
+					session.token = json["token"]["oauth_token"].nullStr;
+					session.tokenSecret = json["token"]["oauth_token_secret"].nullStr;
 
 					persist.oauthToken = session.token;
 					persist.oauthSecret = session.tokenSecret;
