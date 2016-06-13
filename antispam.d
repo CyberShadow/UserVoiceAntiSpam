@@ -63,7 +63,11 @@ void main()
 	log = createLogger("AntiSpam");
 
 	if (persistFileName.exists)
+	{
 		persist = persistFileName.readText().jsonParse!Persist;
+		session.token = persist.oauthToken;
+		session.tokenSecret = persist.oauthSecret;
+	}
 
 	session.config.consumerKey = config.apiKey;
 	session.config.consumerSecret = config.apiSecret;
