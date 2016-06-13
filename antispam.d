@@ -27,7 +27,7 @@ struct Config
 	string site;
 
 	/// URL base for this running instance, e.g. "http://antispam.example.com"
-	/// Used for callacks.
+	/// Used for callbacks.
 	string urlBase;
 
 	/// Address to listen on (for the web hook notifications).

@@ -1,7 +1,7 @@
 # UserVoice site
 site=example.uservoice.com
 
-# URL base for this running instance. Used for callacks.
+# URL base for this running instance. Used for callbacks.
 urlBase=http://antispam.example.com
 
 # Address to listen on (for the web hook notifications).
