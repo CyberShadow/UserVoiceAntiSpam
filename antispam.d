@@ -30,6 +30,13 @@ struct Config
 	/// Used for callacks.
 	string urlBase;
 
+	/// Address to listen on (for the web hook notifications).
+	/// By default, listen on all interfaces.
+	string listenAddr = null;
+
+	/// Port to listen on.
+	ushort listenPort = 80;
+
 	/// UserVoice API key
 	string apiKey;
 
@@ -158,7 +165,7 @@ void main()
 			throw e;
 		}
 	};
-	s.listen(12345);
+	s.listen(config.listenPort, config.listenAddr);
 
 	socketManager.loop();
 }

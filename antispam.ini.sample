@@ -4,6 +4,13 @@ site=example.uservoice.com
 # URL base for this running instance. Used for callacks.
 urlBase=http://antispam.example.com
 
+# Address to listen on (for the web hook notifications).
+# By default, listen on all interfaces.
+#listenAddr=
+
+# Port to listen on (for the web hook notifications).
+listenPort=80
+
 # UserVoice API key
 apiKey=ABCDEFGHIJKLMNOPQRSTUV
 
