@@ -1,0 +1,18 @@
+# UserVoice site
+site=example.uservoice.com
+
+# URL base for this running instance. Used for callacks.
+urlBase=http://antispam.example.com
+
+# UserVoice API key
+apiKey=ABCDEFGHIJKLMNOPQRSTUV
+
+# UserVoice API secret
+apiSecret=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmn
+
+# SSO key, for verifying web hook requests, as described here:
+# https://feedback.uservoice.com/knowledgebase/articles/49266-setup-custom-web-service-hooks
+ssoKey=0123456789abcdef0123456789abcdef
+
+# Akismet key
+akismetKey=1234567890ab
