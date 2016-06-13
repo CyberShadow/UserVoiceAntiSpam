@@ -130,7 +130,7 @@ void main()
 									log(format("Akismet result: %s (%s)", ok, reason));
 									if (!ok)
 									{
-										auto site = url.split("/")[3];
+										auto site = url.split("/")[2];
 										log("Deleting...");
 										deleteSuggestion(site, suggestion["topic"]["id"].integer, suggestion["id"].integer);
 									}
