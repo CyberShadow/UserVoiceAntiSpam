@@ -240,6 +240,9 @@ struct Article
 
 void checkSpam(Article article, void delegate(bool ok, string reason) handler)
 {
+	debug if (article.content.indexOf("spam-test-123") >= 0)
+		return handler(false, "Test keyword matched");
+
 	string[string] params = [
 		"blog"                 : article.site,
 		"user_ip"              : "127.0.0.1",
